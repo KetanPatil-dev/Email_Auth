@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import ConnectDB from "./db/connectDB.js";
 import authRoutes from "./routes/auth.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config(); // Load .env variables
 
@@ -9,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 5757;
 
 app.use(express.json());
+app.use(cookieParser())
 
 app.get("/", (req, res) => {
   res.send("HomePage");
