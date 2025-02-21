@@ -29,11 +29,11 @@ const SignUpPage = () => {
 <Input icon={User} type="text" placeholder="Full Name" value={name} onChange={(e)=>setName(e.target.value)} />
 <Input icon={Mail} type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
 <Input icon={Lock} type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-  <motion.button 
-
+  <Link
+  to="/verify-email"
    className="text-3x1 font-bold mb-6 text-center 
             bg-gradient-to-r from-red-400 to-pink-400 
-            text-transparent bg-clip-text"type="submit" >Sign Up </motion.button>
+            text-transparent bg-clip-text"type="submit" >Sign Up </Link>
             </form>
         </div>
         
