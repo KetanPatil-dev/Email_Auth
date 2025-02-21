@@ -9,7 +9,7 @@ export const generateTokenAndSetCookie=(res,userId)=>{
         httpOnly:true,
         secure:process.env.NODE_ENV==="production",
         sameSite:"strict",
-        masAge: 7 *24*60*60*100
+        maxAge: 7 *24*60*60*100
     })
     return token;
 }
