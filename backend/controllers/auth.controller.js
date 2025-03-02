@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
-import crypto from "crypto";
+import crypto from "crypto"
+
 
 import { generateTokenAndSetCookie } from "../utils/generateTokeAndSetCookie.js";
 import {
@@ -11,14 +12,15 @@ import {
 
 export const signup = async (req, res) => {
   try {
+    console.log(req.body)
     const { email, password, name } = req.body;
     if (!email || !password || !name) {
-      res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({ message: "All fields are required" });
     }
     const userAlreadyExists = await User.findOne({ email });
 
     if (userAlreadyExists) {
-      res.status(400).json({ success: false, message: "User Already Exists" });
+       return res.status(400).json({ success: false, message: "User Already Exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -36,7 +38,7 @@ export const signup = async (req, res) => {
     generateTokenAndSetCookie(res, user._id);
     await sendVerificationEmail(user.email, verificationToken);
 
-    res.status(201).json({
+   return res.status(201).json({
       success: true,
       message: "User created Successfully",
       user: {
@@ -45,7 +47,7 @@ export const signup = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
+   return res.status(400).json({ success: false, message: error.message });
   }
 };
 

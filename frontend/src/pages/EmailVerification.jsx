@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Link } from "lucide-react";
+import { useAuthStore } from "../store/auth.store";
 
 const EmailVerification = () => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRef = useRef([]);
   const navigate = useNavigate();
+  const {verifyEmail}= useAuthStore()
   const handleChange = (index, value) => {
     const newCode=[...code];
     //handle pastetd element
@@ -29,10 +31,15 @@ const EmailVerification = () => {
         }
     }
   };
-  function handleSubmit(e){
+  async function handleSubmit(e){
     e.preventDefault();
     const verificationCode=code.join("");
-    console.log(`Verification code Submitted: ${verificationCode}`)
+    try {
+       await verifyEmail(verificationCode)
+       navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
   const handleKeyDown = (index, e) => {
     if(e.key==="Backspace"&& !code[index] && index>0)
@@ -40,6 +47,7 @@ const EmailVerification = () => {
         inputRef.current[index-1].focus()
     }
   };
+  
   useEffect(()=>{
     if(code.every(digit=>digit!=="")){
         handleSubmit(new Event("submit"))

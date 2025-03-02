@@ -4,14 +4,27 @@ import Input from "../component/Input"
 
 import { useState } from "react"
 import { Lock, Mail, User } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuthStore } from "../store/auth.store.js"
+
 const SignUpPage = () => {
     const [name,setName]=useState("")
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
-    function handleSignUp(e){
-        e.preventDefault()
+    const navigate=useNavigate();
+    const {signup}=useAuthStore()
+    const handleSignUp=async(e)=>{
+        e.preventDefault();
+        try{
+            await signup(email,password,name)
+            console.log(signup)
+       
+            navigate("/verify-email");
+        } catch(error){
+            console.log(error)
+        }
     }
+    
   return (
     <motion.div
     initial={{opacity:0,y:20}}
@@ -29,11 +42,11 @@ const SignUpPage = () => {
 <Input icon={User} type="text" placeholder="Full Name" value={name} onChange={(e)=>setName(e.target.value)} />
 <Input icon={Mail} type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
 <Input icon={Lock} type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-  <Link
-  to="/verify-email"
+  <button
+  
    className="text-3x1 font-bold mb-6 text-center 
             bg-gradient-to-r from-red-400 to-pink-400 
-            text-transparent bg-clip-text"type="submit" >Sign Up </Link>
+            text-transparent bg-clip-text"type="submit" >Sign Up </button>
             </form>
         </div>
         
