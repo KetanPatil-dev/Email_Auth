@@ -1,5 +1,5 @@
 
-import { SendPasswordResetEmail, SendVerificationCode, WelcomeEmail } from "../mailtrap/mail.js"
+import { ResetSuccessEmail, SendPasswordResetEmail, SendVerificationCode, WelcomeEmail } from "../mailtrap/mail.js"
 import UserModel from "../models/user.model.js"
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js"
 import bcrypt from "bcryptjs"
@@ -99,5 +99,43 @@ await SendPasswordResetEmail(user.email,user.resetPasswordToken)
      return res.status(201).json("Reset Link Sent to your Email")   
     } catch (error) {
         console.log("Forgot Password Error",error)
+    }
+}
+
+export const ResetPassword=async(req ,res)=>{
+    try {
+        const {token}=req.params
+        const {password}=req.body
+
+        const user= await UserModel.findOne({
+            resetPasswordToken:token,
+            resetPasswordExpiresAt:{$gt:Date.now()}
+        })
+        if(!user)
+            return res.status(400).json({ success: false, message: "Invalid"})
+        
+        const hashedPassword= await bcrypt.hash(password,10)
+        user.password=hashedPassword
+        user.resetPasswordToken=undefined
+        user.resetPasswordExpiresAt=undefined
+        await user.save()
+        await ResetSuccessEmail(user.email)
+        return res.status(200).json("Password reset Successfully")
+    } catch (error) {
+        console.log("Reset Password Error",error)
+    }
+}
+
+export const CheckAuth=async(req,res)=>{
+    try {
+        const user= await UserModel.findById(req.userId).select("-password")
+        if (!user) {
+			return res.status(400).json({ success: false, message: "User not found" });
+		}
+        
+        return res.status(200).json({success:true,user})
+        
+    } catch (error) {
+        console.log("CheckAuth Error",error)
     }
 }
