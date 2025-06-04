@@ -1,8 +1,9 @@
 
-import { SendVerificationCode, WelcomeEmail } from "../mailtrap/mail.js"
+import { SendPasswordResetEmail, SendVerificationCode, WelcomeEmail } from "../mailtrap/mail.js"
 import UserModel from "../models/user.model.js"
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js"
 import bcrypt from "bcryptjs"
+import crypto from "crypto"
 
 
 export const Signup=async (req ,res)=>{
@@ -26,6 +27,29 @@ await SendVerificationCode(email,VerificationCode,userData.name)
         
     } catch (error) {
         console.log("Signup Error",error.message)
+    }
+}
+
+export const Login=async(req ,res)=>{
+    const {email,password}=req.body
+    try {
+   const user= await UserModel.findOne({email})     
+   if(!user)
+   {
+    return res.status(403).json("Invalid Crediantials")
+   }
+   const isCorrectPassword= await bcrypt.compare(password,user.password)
+   if(!isCorrectPassword)
+   {
+    return res.status(402).json("Invalid Password")
+   }
+   generateTokenAndSetCookie(res,user._id)
+   user.lastLogin=new Date()
+   const {password:_,...userData}=user.toObject()
+   return res.status(200).json({message:"Login Successful",userData})
+        
+    } catch (error) {
+        console.log(error)
     }
 }
 export const Logout=async(req,res)=>{
@@ -55,5 +79,25 @@ export const VerifyEmail=async(req,res)=>{
         return res.status(201).json("Email Verified Successfully")
     } catch (error) {
      console.log("Verify Email Error",error)   
+    }
+}
+
+export const ForgotPassword=async(req ,res)=>{
+    const {email}=req.body
+    try {
+        const user=await UserModel.findOne({email})
+ if(!user)
+   {
+    return res.status(403).json("User not Found")
+   }
+   const resetToken= crypto.randomBytes(20).toString("hex")
+   const resetTokenExpiresAt= Date.now() + 1*60*60*1000
+   user.resetPasswordToken = resetToken;
+ user.resetPasswordExpiresAt = resetTokenExpiresAt;
+await user.save()
+await SendPasswordResetEmail(user.email,user.resetPasswordToken)
+     return res.status(201).json("Reset Link Sent to your Email")   
+    } catch (error) {
+        console.log("Forgot Password Error",error)
     }
 }
