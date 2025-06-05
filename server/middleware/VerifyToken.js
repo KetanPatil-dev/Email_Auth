@@ -7,7 +7,7 @@ export const VerifiyToken=async(req ,res,next)=>{
 
             const decoded= jwt.verify(token,process.env.JWT_SECRET)
             if(!decoded) return res.status(401).json("Invalid Token")
-        console.log(decoded)
+        
         req.userId=decoded.userId
         next()
     } catch (error) {
