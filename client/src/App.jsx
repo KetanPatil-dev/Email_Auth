@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import FloatingShapes from './components/FloatingShapes'
+import HomePage from './pages/HomePage'
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
       <FloatingShapes color="bg-orange-800" size="w-48 h-48" top="70%" left="80%" delay={0}/>
       <FloatingShapes color="bg-line-500" size="w-32 h-32" top="40%" left="-10%" delay={0}/>
       <Routes>
+        <Route path='/' element={<HomePage/>}/>
         <Route path='/signup' element={<SignupPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
       </Routes>
