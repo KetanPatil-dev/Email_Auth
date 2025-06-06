@@ -37,7 +37,7 @@ export const SendPasswordResetEmail=async(email,resetURL,name)=>{
             to: "mail.ketan027@gmail.com",
             subject: "Reset",
             text: "Reset Password", // plain‑text body
-            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}",resetURL).replace("{name}",name)
+            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}",`http://localhost:5173/reset-password/${resetURL}`).replace("{name}",name)
           })
     
   } catch (error) {
