@@ -5,10 +5,10 @@ import Input from "../components/Input";
 import {Lock, Mail, User,Loader, ArrowBigRight} from "lucide-react"
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 const LoginPage = () => {
-    const isLoading=false
-    const error=false
+    const {isLoading,error,login}=useAuthStore()
   const [ formData, setFormData ] = useState({
     email: "",
     password: "",
@@ -19,6 +19,7 @@ const LoginPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    login(formData)
   };
   return (
    <div className="flex justify-center items-center">
@@ -48,7 +49,7 @@ const LoginPage = () => {
 						type='submit'
 						disabled={isLoading}
 					>
-						{isLoading ? <Loader className=' animate-spin mx-auto' size={24} /> : "Sign Up"}
+						{isLoading ? <Loader className=' animate-spin mx-auto' size={24} /> : "Log In"}
 					</motion.button>
         </form>
      <p className="mt-4 text-white text-center hover:text-xl cursor-pointer">

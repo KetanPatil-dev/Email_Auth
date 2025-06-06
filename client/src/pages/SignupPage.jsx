@@ -4,11 +4,12 @@ import { motion } from "framer-motion";
 import Input from "../components/Input";
 import {Lock, Mail, User,Loader, ArrowBigRight} from "lucide-react"
 import PasswordStrengthMeter from "../components/PasswordStrengthMeter";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 const SignupPage = () => {
-    const isLoading=false
-    const error=false
+    const navigate=useNavigate()
+   const {isLoading,error,signup}=useAuthStore()
   const [ formData, setFormData ] = useState({
     name: "",
     email: "",
@@ -20,6 +21,8 @@ const SignupPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    signup(formData)
+    navigate("/verify-email")
   };
   return (
    <div className="flex justify-center items-center">
