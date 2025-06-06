@@ -27,10 +27,10 @@ const LoginPage = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5,delay:.5 }}
-      className="max-w-md w-full mt-11 bg-gray-700 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
+      className="max-w-md w-full mt-11 bg-gray-950 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-2xl shadow-xl overflow-hidden"
     >
       <div className="p-8">
-        <h2 className="text-2xl text-white font-bold mb-6 text-center bg-gradiant-to-right from-orange-400 to-red-500  bg-clip-text ">
+        <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-orange-400 to-red-600 text-transparent bg-clip-text ">
           Log In
         </h2>
         <form onSubmit={handleSubmit}>
@@ -52,7 +52,7 @@ const LoginPage = () => {
 						{isLoading ? <Loader className=' animate-spin mx-auto' size={24} /> : "Log In"}
 					</motion.button>
         </form>
-     <p className="mt-4 text-white text-center hover:text-xl cursor-pointer">
+     <p className="mt-4 text-white text-center hover:text-gray-400 cursor-pointer">
  
  Don't have an Account?
   <Link to="/signup">
