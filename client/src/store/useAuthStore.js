@@ -3,7 +3,7 @@ import { create } from "zustand";
 import axios from "axios";
 
 const BASE_URL = "http://localhost:9090/api/auth";
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials = true;
 
 export const useAuthStore = create((set) => ({
   error: null,
@@ -34,7 +34,9 @@ export const useAuthStore = create((set) => ({
       set({ user: res.data.userData, isAuthenticated: true, isLoading: false });
       toast.success("Login Successful");
     } catch (error) {
-      toast.error(error.response?.data?.message);
+      toast.error(error.response?.data?.message||"Invalid Crediantials");
+    } finally{
+      set({isLoading:false})
     }
   },
   checkAuth: async () => {
@@ -44,32 +46,45 @@ export const useAuthStore = create((set) => ({
 
       set({ user: res.data.user, isAuthenticated: true });
     } catch (error) {
-      set({ isCheckingAuth:false});
+      set({ isCheckingAuth: false });
       console.log(error);
     } finally {
       set({ isCheckingAuth: false });
     }
   },
-  logout:async()=>{
+  logout: async () => {
     try {
-        set({isLoading:true})
-         await axios.post(`${BASE_URL}/logout`)
-        set({user:null,isAuthenticated:false,isLoading:false})
-        toast.success("Logout Successful")
+      set({ isLoading: true });
+      await axios.post(`${BASE_URL}/logout`);
+      set({ user: null, isAuthenticated: false, isLoading: false });
+      toast.success("Logout Successful");
     } catch (error) {
-        toast.error(error.response?.data?.message)
+      toast.error(error.response?.data?.message);
     }
   },
-  forgotPassword:async(email)=>{
+  forgotPassword: async (email) => {
     try {
-        set({isLoading:true})
-         await axios.post(`${BASE_URL}/forgot-password`,{email})
-         set({isLoading:false})
-         toast.success("Reset Link is sent to your email")
-
-        
+      set({ isLoading: true });
+      await axios.post(`${BASE_URL}/forgot-password`, { email });
+      set({ isLoading: false });
+      toast.success("Reset Link is sent to your email");
     } catch (error) {
-        console.log(error)
+      console.log(error);
+    } finally {
+      set({ isLoading: false });
     }
-  }
+  },
+  resetPassword: async (token, password) => {
+    try {
+      set({ isLoading: true });
+     const res= await axios.post(`${BASE_URL}/reset-password/${token}`, { password });
+      set({user:res.data.userData,isAuthenticated:true})
+      toast.success("Password Reset Successfully, Redirecting to HomePage...")
+      
+    } catch (error) {
+      console.log(error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 }));

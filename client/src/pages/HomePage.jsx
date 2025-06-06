@@ -38,8 +38,8 @@ const HomePage = () => {
 					transition={{ delay: 0.2 }}
 				>
 					<h3 className='text-xl font-semibold text-orange-400 mb-3'>Profile Information</h3>
-					<p className='text-gray-300'>Name:  {user.name} </p>
-					<p className='text-gray-300'>Email: {user.email}</p>
+					<p className='text-gray-300'>Name:  {user?.name} </p>
+					<p className='text-gray-300'>Email: {user?.email}</p>
 				</motion.div>
 				<motion.div
 					className='p-4 bg-gray-800 bg-opacity-50 rounded-lg border border-gray-700'
@@ -71,7 +71,7 @@ const HomePage = () => {
 					onClick={handleLogout}
 					className='w-full py-3 px-4 bg-gradient-to-r from-orange-500 to-red-600 text-white 
 				font-bold rounded-lg shadow-lg hover:from-orange-600 hover:to-pink-700
-				 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900'
+				 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer'
 				>
 					Logout
 				</motion.button>

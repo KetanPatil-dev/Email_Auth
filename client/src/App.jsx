@@ -13,7 +13,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
 function App() {
-  const { checkAuth, user } = useAuthStore();
+  const { checkAuth,user } = useAuthStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
@@ -44,8 +44,8 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={user ? <HomePage /> : <Navigate to="/login" replace />}
-        />
+          element={user ? <HomePage /> : <Navigate to="/login" replace />}/>
+    
         <Route
           path="/signup"
           element={!user ? <SignupPage /> : <Navigate to="/" />}
