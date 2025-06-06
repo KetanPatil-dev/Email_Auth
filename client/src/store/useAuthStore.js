@@ -50,4 +50,26 @@ export const useAuthStore = create((set) => ({
       set({ isCheckingAuth: false });
     }
   },
+  logout:async()=>{
+    try {
+        set({isLoading:true})
+         await axios.post(`${BASE_URL}/logout`)
+        set({user:null,isAuthenticated:false,isLoading:false})
+        toast.success("Logout Successful")
+    } catch (error) {
+        toast.error(error.response?.data?.message)
+    }
+  },
+  forgotPassword:async(email)=>{
+    try {
+        set({isLoading:true})
+         await axios.post(`${BASE_URL}/forgot-password`,{email})
+         set({isLoading:false})
+         toast.success("Reset Link is sent to your email")
+
+        
+    } catch (error) {
+        console.log(error)
+    }
+  }
 }));

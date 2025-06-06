@@ -17,9 +17,9 @@ const LoginPage = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    login(formData)
+   await login(formData)
   };
   return (
    <div className="flex justify-center items-center">
@@ -36,6 +36,7 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit}>
             <Input icon={Mail}  type="email" name="email" placeholder="mail.ketan027@gmail.com" value={formData.email} onChange={handleChange}/>
             <Input icon={Lock}  type="password" name="password" placeholder="******" value={formData.password} onChange={handleChange}/>
+           <Link to="/forgot-password"> <span className="mb-2 text-xs cursor-pointer text-gray-450 hover:text-sm">Forgot Password ?</span></Link>
             {error && <p className="text-red-500 font-semibold" >{error}</p>}
             <PasswordStrengthMeter password={formData.password}/>
         

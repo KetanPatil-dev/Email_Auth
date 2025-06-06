@@ -19,9 +19,9 @@ const SignupPage = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit =  async(e) => {
     e.preventDefault();
-    signup(formData)
+   await signup(formData)
     navigate("/verify-email")
   };
   return (
