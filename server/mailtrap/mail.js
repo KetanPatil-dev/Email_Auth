@@ -30,14 +30,14 @@ export const WelcomeEmail=async(email,name)=>{
     }
 }
 
-export const SendPasswordResetEmail=async(email,resetURL)=>{
+export const SendPasswordResetEmail=async(email,resetURL,name)=>{
   try {
      const info = await transporter.sendMail({
             from: '"Ketan Patil" <mail.ketan027@gmail.com>',
             to: "mail.ketan027@gmail.com",
             subject: "Reset",
             text: "Reset Password", // plain‑text body
-            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}",resetURL)
+            html: PASSWORD_RESET_REQUEST_TEMPLATE.replace("{resetURL}",resetURL).replace("{name}",name)
           })
     
   } catch (error) {
@@ -45,14 +45,14 @@ export const SendPasswordResetEmail=async(email,resetURL)=>{
   }
 }
 
-export const ResetSuccessEmail=async(email)=>{
+export const ResetSuccessEmail=async(email,name)=>{
   try {
      const info = await transporter.sendMail({
             from: '"Ketan Patil" <mail.ketan027@gmail.com>',
             to: "mail.ketan027@gmail.com",
             subject: "Reset",
             text: "Reset Password", // plain‑text body
-            html: PASSWORD_RESET_SUCCESS_TEMPLATE
+            html: PASSWORD_RESET_SUCCESS_TEMPLATE.replace("{name}",name)
           })
     
   } catch (error) {

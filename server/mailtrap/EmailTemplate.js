@@ -70,7 +70,7 @@ export const Verification_Email_Template = `
               <p>If you did not create an account, no further action is required. If you have any questions, feel free to contact our support team.</p>
           </div>
           <div class="footer">
-              <p>&copy; ${new Date().getFullYear()} Your Company. All rights reserved.</p>
+              <p>&copy; ${new Date().getFullYear()} Ketan's Company. All rights reserved.</p>
           </div>
       </div>
   </body>
@@ -90,7 +90,7 @@ export const PASSWORD_RESET_REQUEST_TEMPLATE = `
     <h1 style="color: white; margin: 0;">Password Reset</h1>
   </div>
   <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello,</p>
+    <p>Hello,{name}</p>
     <p>We received a request to reset your password. If you didn't make this request, please ignore this email.</p>
     <p>To reset your password, click the button below:</p>
     <div style="text-align: center; margin: 30px 0;">
@@ -194,7 +194,7 @@ export const Welcome_Email_Template = `
               <p>If you need any help, don’t hesitate to contact us. We’re here to support you every step of the way.</p>
           </div>
           <div class="footer">
-              <p>&copy; ${new Date().getFullYear()} Your Company. All rights reserved.</p>
+              <p>&copy; ${new Date().getFullYear()} Ketan's Company. All rights reserved.</p>
           </div>
       </div>
   </body>
@@ -213,7 +213,7 @@ export const PASSWORD_RESET_SUCCESS_TEMPLATE = `
     <h1 style="color: white; margin: 0;">Password Reset Successful</h1>
   </div>
   <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello,</p>
+    <p>Hello,{name}</p>
     <p>We're writing to confirm that your password has been successfully reset.</p>
     <div style="text-align: center; margin: 30px 0;">
       <div style="background-color: #4CAF50; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; display: inline-block; font-size: 30px;">
@@ -228,7 +228,7 @@ export const PASSWORD_RESET_SUCCESS_TEMPLATE = `
       <li>Avoid using the same password across multiple sites</li>
     </ul>
     <p>Thank you for helping us keep your account secure.</p>
-    <p>Best regards,<br>Your App Team</p>
+    <p>Best regards,<br>Ketan's App Team</p>
   </div>
   <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
     <p>This is an automated message, please do not reply to this email.</p>

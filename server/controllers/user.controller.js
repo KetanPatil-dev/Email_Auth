@@ -95,7 +95,7 @@ export const ForgotPassword=async(req ,res)=>{
    user.resetPasswordToken = resetToken;
  user.resetPasswordExpiresAt = resetTokenExpiresAt;
 await user.save()
-await SendPasswordResetEmail(user.email,user.resetPasswordToken)
+await SendPasswordResetEmail(user.email,user.resetPasswordToken,user.name)
      return res.status(201).json("Reset Link Sent to your Email")   
     } catch (error) {
         console.log("Forgot Password Error",error)
@@ -119,7 +119,7 @@ export const ResetPassword=async(req ,res)=>{
         user.resetPasswordToken=undefined
         user.resetPasswordExpiresAt=undefined
         await user.save()
-        await ResetSuccessEmail(user.email)
+        await ResetSuccessEmail(user.email,user.name)
         return res.status(200).json("Password reset Successfully")
     } catch (error) {
         console.log("Reset Password Error",error)
