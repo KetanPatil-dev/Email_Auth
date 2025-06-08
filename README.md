@@ -11,7 +11,7 @@ A full-stack authentication system built with the MERN stack (MongoDB, Express, 
 - Password reset via email
 - Protected routes and role-based access
 - State management in React using Zustand
-<video src="https://github.com/user-attachments/assets/95874e5e-d5c8-4191-8c31-7fe0e1f72d1b"></video>
+<video src="https://github.com/user-attachments/assets/95874e5e-d5c8-4191-8c31-7fe0e1f72d1b" width="600"></video>
 ---
 
 ## Tech Stack
