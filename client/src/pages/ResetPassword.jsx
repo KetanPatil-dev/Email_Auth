@@ -28,7 +28,7 @@ const ResetPassword = () => {
     },2000)
   }
   return (
-    <div className='flex justify-center  mt-11'>
+    <div className='flex justify-center items-center min-h-screen'>
     <motion.div
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}

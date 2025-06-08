@@ -13,12 +13,15 @@ const HomePage = () => {
     })
    
 
-	const handleLogout = () => {
-        logout()
+	const handleLogout = async () => {
+      await  logout()
         navigate("/login")
 		
 	};
 	return (
+		<div className="flex items-center justify-center min-h-screen">
+
+		
 		<motion.div
 			initial={{ opacity: 0, scale: 0.9 }}
 			animate={{ opacity: 1, scale: 1 }}
@@ -77,6 +80,7 @@ const HomePage = () => {
 				</motion.button>
 			</motion.div>
 		</motion.div>
+		</div>
 	);
 };
 export default HomePage;
